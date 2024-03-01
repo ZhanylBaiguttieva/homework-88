@@ -48,3 +48,12 @@ export interface PostMutation {
   image: File | null;
   user: string;
 }
+
+export interface PostInfo {
+  _id: string;
+  title: string;
+  description: string;
+  datetime: string;
+  image: string | null;
+  user: User;
+}

@@ -6,6 +6,7 @@ import Register from './features/users/Register.tsx';
 import Login from './features/users/Login.tsx';
 import Posts from './features/posts/components/Posts.tsx';
 import NewPost from './features/posts/components/NewPost.tsx';
+import PostInfo from './features/posts/components/PostInfo.tsx';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Posts />} />
             <Route path="/new-post" element={<NewPost />}></Route>
+            <Route path="/posts/:id" element={<PostInfo />}></Route>
             <Route path="*" element={<h1>Not found</h1>} />
           </Routes>
         </Container>

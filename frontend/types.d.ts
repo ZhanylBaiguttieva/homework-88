@@ -57,3 +57,16 @@ export interface PostInfo {
   image: string | null;
   user: User;
 }
+
+export interface CommentMutation {
+  text: string;
+  post: string;
+  user: string;
+}
+
+export interface Comment {
+  _id: string;
+  user: User;
+  post: string;
+  text: string;
+}

@@ -3,13 +3,20 @@ import { selectOnePostLoading, selectPost } from '../postsSlice.ts';
 import { useParams } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { fetchOnePost } from '../postsThunk.ts';
-import { Box, Card, CardContent, CardMedia,Grid, Typography } from '@mui/material';
+import { Alert, Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import imageNotAvailable from '../../../assets/images/image_not_available.png';
 import { apiURL } from '../../../../constants.ts';
+import CommentForm from '../../comments/components/CommentForm.tsx';
+import { CommentMutation } from '../../../../types';
+import { createComment, fetchComments } from '../../comments/commentsThunk.ts';
+import Comments from '../../comments/components/Comments.tsx';
+import { selectUser } from '../../users/usersSlice.ts';
 
 const PostInfo = () => {
+
   const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
   const post = useAppSelector(selectPost);
   const isOneLoading = useAppSelector(selectOnePostLoading);
   const {id} = useParams() as {id: string};
@@ -24,12 +31,18 @@ const PostInfo = () => {
 
   useEffect(() => {
     dispatch(fetchOnePost(id));
+    dispatch(fetchComments(id));
   }, [dispatch, id]);
+
+
+  const onFormSubmit = async (commentMutation: CommentMutation) => {
+    await dispatch(createComment(commentMutation)).unwrap();
+  };
 
   let postInfo: React.ReactNode;
   if(!isOneLoading && post) {
     postInfo = (
-      <Grid>
+      <Stack>
         <Card sx={{ display: 'flex' }}>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <CardContent sx={{ flex: '1 0 auto' }}>
@@ -50,15 +63,27 @@ const PostInfo = () => {
             image={cardImage}
           />
         </Card>
-      </Grid>
+          {user ? (
+            <Box m={2} maxWidth={500} >
+              <CommentForm onSubmit={onFormSubmit}/>
+            </Box>
+          ) : (
+            <Box m={2} maxWidth={500}>
+              <Alert severity="info">
+                To comment this post, please, login or register!
+              </Alert>
+            </Box>
+          )}
+        <Stack spacing={2} m={2}>
+          <Comments/>
+        </Stack>
+      </Stack>
     );
   }
   return (
-    <Grid container direction="column" spacing={2}>
-      <Grid item container spacing={2}>
+    <Stack>
         {postInfo}
-      </Grid>
-    </Grid>
+    </Stack>
   );
 };
 

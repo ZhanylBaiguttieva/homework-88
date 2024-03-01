@@ -41,3 +41,10 @@ export interface Post {
   image: string | null;
   user: User;
 }
+
+export interface PostMutation {
+  title: string;
+  description: string;
+  image: File | null;
+  user: string;
+}

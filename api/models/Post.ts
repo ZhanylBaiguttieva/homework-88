@@ -18,6 +18,7 @@ const PostSchema =  new Schema({
         type: String,
         required: true,
     },
+    description: String,
     datetime: {
         type: Date,
         required: true,

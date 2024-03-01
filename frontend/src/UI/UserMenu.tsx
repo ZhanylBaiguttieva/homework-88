@@ -3,6 +3,7 @@ import { Button, Menu, MenuItem } from '@mui/material';
 import { useAppDispatch } from '../app/hooks.ts';
 import { User } from '../../types';
 import { logout } from '../features/users/usersThunk.ts';
+import { NavLink } from 'react-router-dom';
 
 
 interface Props {
@@ -30,7 +31,7 @@ const UserMenu: React.FC<Props> = ({user}) => {
         Hello, {user.username}
       </Button>
       <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleClose} keepMounted>
-        <MenuItem>Add new post</MenuItem>
+        <MenuItem component={NavLink} to="/new-post" color="inherit">Add new post</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </>

@@ -1,6 +1,6 @@
 import { Post } from '../../../types';
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchPosts } from './postsThunk.ts';
+import { createPost, fetchPosts } from './postsThunk.ts';
 import { RootState } from '../../app/store.ts';
 
 interface PostsState {
@@ -31,18 +31,19 @@ export const postsSlice = createSlice({
       state.fetchLoading = false;
     });
 
-    // builder.addCase(createProduct.pending, (state) => {
-    //   state.createLoading = true;
-    // });
-    // builder.addCase(createProduct.fulfilled, (state) => {
-    //   state.createLoading = false;
-    // });
-    // builder.addCase(createProduct.rejected, (state) => {
-    //   state.createLoading = false;
-    // });
+    builder.addCase(createPost.pending, (state) => {
+      state.createLoading = true;
+    });
+    builder.addCase(createPost.fulfilled, (state) => {
+      state.createLoading = false;
+    });
+    builder.addCase(createPost.rejected, (state) => {
+      state.createLoading = false;
+    });
   },
 });
 
 export const postsReducer = postsSlice.reducer;
 export const selectPosts = (state:RootState) => state.posts.items;
 export const selectPostsLoading = (state:RootState) => state.posts.fetchLoading;
+export const selectPostCreating = (state:RootState) => state.posts.createLoading;

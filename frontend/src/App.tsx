@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import Register from './features/users/Register.tsx';
 import Login from './features/users/Login.tsx';
 import Posts from './features/posts/components/Posts.tsx';
+import NewPost from './features/posts/components/NewPost.tsx';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Posts />} />
+            <Route path="/new-post" element={<NewPost />}></Route>
             <Route path="*" element={<h1>Not found</h1>} />
           </Routes>
         </Container>

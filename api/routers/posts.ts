@@ -13,6 +13,7 @@ postsRouter.post(
     try {
         const postData = new Post({
             user: req.user?._id,
+            description: req.body.description,
             title: req.body.title,
             datetime: Date.now(),
             image: req.file ? req.file.filename : null,

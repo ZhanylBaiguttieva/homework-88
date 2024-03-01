@@ -1,13 +1,17 @@
 import { PostMutation } from '../../../../types';
 import { useState } from 'react';
-import { Button, Grid, TextField } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 import FileInput from '../../../UI/FileInput.tsx';
+import { LoadingButton } from '@mui/lab';
+import { useAppSelector } from '../../../app/hooks.ts';
+import { selectPostCreating } from '../postsSlice.ts';
+
 
 interface Props {
   onSubmit: (mutation: PostMutation) => void;
 }
 const PostForm:React.FC<Props> = ({onSubmit}) => {
-
+  const isCreating = useAppSelector(selectPostCreating);
   const [state, setState] = useState<PostMutation>({
     title: '',
     description: '',
@@ -73,7 +77,15 @@ const PostForm:React.FC<Props> = ({onSubmit}) => {
         </Grid>
 
         <Grid item xs>
-          <Button type="submit" color="primary" variant="contained">Create post</Button>
+          <LoadingButton
+            type="submit"
+            color="primary"
+            variant="contained"
+            loading={isCreating}
+            disabled={isCreating}
+          >
+            Create post
+          </LoadingButton>
         </Grid>
       </Grid>
     </form>

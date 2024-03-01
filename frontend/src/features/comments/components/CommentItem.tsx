@@ -9,11 +9,8 @@ const CommentItem: React.FC<Props> = ({comment}) => {
   return (
     <Card sx={{ maxWidth: 500 }}>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {comment.user?.username} said:
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {comment.text}
+        <Typography variant="subtitle1" color="text.secondary" component="div">
+          <strong>{comment.user?.username}:</strong> "{comment.text}"
         </Typography>
       </CardContent>
     </Card>

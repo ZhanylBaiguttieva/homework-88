@@ -3,15 +3,15 @@ import { selectOnePostLoading, selectPost } from '../postsSlice.ts';
 import { useParams } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { fetchOnePost } from '../postsThunk.ts';
-import { Alert, Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
+import { Alert, Box, Card, CardContent, CardMedia, Grid, Stack, Typography } from '@mui/material';
 import dayjs from 'dayjs';
-import imageNotAvailable from '../../../assets/images/image_not_available.png';
 import { apiURL } from '../../../../constants.ts';
 import CommentForm from '../../comments/components/CommentForm.tsx';
 import { CommentMutation } from '../../../../types';
 import { createComment, fetchComments } from '../../comments/commentsThunk.ts';
 import Comments from '../../comments/components/Comments.tsx';
 import { selectUser } from '../../users/usersSlice.ts';
+import ForumIcon from '@mui/icons-material/Forum';
 
 const PostInfo = () => {
 
@@ -24,10 +24,7 @@ const PostInfo = () => {
   const currentDate = dayjs(post?.datetime);
   const formattedDate = currentDate.format('YYYY-MM-DD HH:mm:ss');
 
-  let cardImage = imageNotAvailable;
-  if (post?.image) {
-    cardImage = apiURL + '/' + post.image;
-  }
+  const cardImage = apiURL + '/' + post?.image;
 
   useEffect(() => {
     dispatch(fetchOnePost(id));
@@ -42,7 +39,7 @@ const PostInfo = () => {
   let postInfo: React.ReactNode;
   if(!isOneLoading && post) {
     postInfo = (
-      <Stack>
+      <Stack maxWidth={500}>
         <Card sx={{ display: 'flex' }}>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <CardContent sx={{ flex: '1 0 auto' }}>
@@ -55,13 +52,19 @@ const PostInfo = () => {
               <Typography variant="subtitle1" color="text.primary">
                 {post.description}
               </Typography>
+              {post.image ? (
+                <CardMedia
+                  component="img"
+                  sx={{ width: 151 }}
+                  image={cardImage}
+                />
+              ) : (
+                <Grid>
+                  <ForumIcon style={{fontSize: '600%'}}/>
+                </Grid>
+              )}
             </CardContent>
           </Box>
-          <CardMedia
-            component="img"
-            sx={{ width: 151 }}
-            image={cardImage}
-          />
         </Card>
           {user ? (
             <Box m={2} maxWidth={500} >

@@ -7,7 +7,7 @@ import {
   Grid,
   Typography
 } from '@mui/material';
-import imageNotAvailable from '../../../assets/images/image_not_available.png';
+import ForumIcon from '@mui/icons-material/Forum';
 import { apiURL } from '../../../../constants.ts';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
@@ -20,11 +20,8 @@ const PostItem: React.FC<Props> = ({post}) => {
   const currentDate = dayjs(post.datetime);
   const formattedDate = currentDate.format('YYYY-MM-DD HH:mm:ss');
 
-  let cardImage = imageNotAvailable;
+  const cardImage = apiURL + '/' + post.image;
 
-  if (post.image) {
-    cardImage = apiURL + '/' + post.image;
-  }
   return (
     <Grid item sm md={6} lg={4}>
       <Card sx={{ display: 'flex' }}>
@@ -38,11 +35,17 @@ const PostItem: React.FC<Props> = ({post}) => {
             </Typography>
           </CardContent>
         </Box>
-        <CardMedia
-          component="img"
-          sx={{ width: 151 }}
-          image={cardImage}
-        />
+        {post.image ? (
+          <CardMedia
+            component="img"
+            sx={{ width: 151 }}
+            image={cardImage}
+          />
+        ) : (
+          <Grid>
+              <ForumIcon style={{fontSize: '600%'}}/>
+          </Grid>
+        )}
       </Card>
     </Grid>
   );

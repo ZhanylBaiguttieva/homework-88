@@ -15,6 +15,7 @@ postsRouter.post(
         const postData = new Post({
             user: req.user?._id,
             title: req.body.title,
+            description: req.body.description ? req.body.description : null,
             datetime: Date.now(),
             image: req.file ? req.file.filename : null,
         });
@@ -26,7 +27,7 @@ postsRouter.post(
 });
 
 postsRouter.get('/', async(req,res,next) => {
-   const posts = await Post.find().populate('user','username');
+   const posts = await Post.find().populate('user','username').sort({datetime: "desc"});
    res.send(posts);
 });
 

@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks.ts';
 import { useEffect } from 'react';
 import { selectPosts, selectPostsLoading } from '../postsSlice.ts';
 import { fetchPosts } from '../postsThunk.ts';
-import { CircularProgress, Grid, Typography } from '@mui/material';
+import { CircularProgress, Grid, Stack, Typography } from '@mui/material';
 import PostItem from './PostItem.tsx';
 
 
@@ -30,9 +30,9 @@ const Posts = () => {
       <Grid item>
         <Typography variant="h4">Posts</Typography>
       </Grid>
-      <Grid item container spacing={2}>
+      <Stack spacing={3} alignItems="center">
         {postsArea}
-      </Grid>
+      </Stack>
     </Grid>
   );
 };

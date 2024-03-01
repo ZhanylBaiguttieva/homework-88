@@ -4,6 +4,7 @@ import AppToolBar from './UI/AppToolBar.tsx';
 import { Route, Routes } from 'react-router-dom';
 import Register from './features/users/Register.tsx';
 import Login from './features/users/Login.tsx';
+import Posts from './features/posts/components/Posts.tsx';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Posts />} />
             <Route path="*" element={<h1>Not found</h1>} />
           </Routes>
         </Container>

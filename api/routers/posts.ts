@@ -17,7 +17,6 @@ postsRouter.post(
             datetime: Date.now(),
             image: req.file ? req.file.filename : null,
         });
-
         await postData.save();
         res.send({postData});
     }   catch(e) {
@@ -26,7 +25,7 @@ postsRouter.post(
 });
 
 postsRouter.get('/', async(req,res,next) => {
-   const posts = await Post.find();
+   const posts = await Post.find().populate('user','username');
    res.send(posts);
 });
 

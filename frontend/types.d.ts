@@ -33,3 +33,11 @@ export interface LoginMutation {
   username: string;
   password: string;
 }
+
+export interface Post {
+  _id: string;
+  title: string;
+  datetime: string;
+  image: string | null;
+  user: User;
+}
